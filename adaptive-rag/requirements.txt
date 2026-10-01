@@ -1,0 +1,51 @@
+# AdaptiveRAG — pinned requirements.
+#
+# Every version below was installed together into a clean virtual
+# environment and verified to resolve with NO dependency conflicts, and
+# the actual APIs used throughout this codebase (PGEngine/PGVectorStore,
+# PostgresSaver, StateGraph, with_structured_output, etc.) were verified
+# against these exact installed versions — not assumed from older
+# tutorials. See README.md "Why these versions" for details.
+
+# --- Web UI ---------------------------------------------------------------
+streamlit==1.63.0
+
+# --- LLM orchestration ------------------------------------------------------
+langchain==1.4.0
+langchain-core==1.6.2
+langchain-openai==1.6.1
+langchain-text-splitters==1.1.2
+langgraph==1.2.11
+langgraph-checkpoint==4.2.0
+langgraph-checkpoint-postgres==3.1.2
+
+# --- Observability -----------------------------------------------------
+langsmith==0.12.2
+
+# --- PostgreSQL + pgvector ---------------------------------------------
+langchain-postgres==0.0.17
+psycopg[binary]==3.3.5
+psycopg-pool==3.3.1
+pgvector==0.3.6
+SQLAlchemy==2.0.52
+
+# --- Document loading / chunking ----------------------------------------
+pypdf==6.18.0
+python-docx==1.2.0
+rank-bm25==0.2.2
+
+# --- Auth -----------------------------------------------------------------
+argon2-cffi==25.1.0
+
+# --- Config -----------------------------------------------------------
+python-dotenv==1.2.3
+
+# --- Optional external search (only used if ENABLE_WEB_SEARCH=true) -----
+tavily-python==0.8.1
+
+# --- Data validation ----------------------------------------------------
+pydantic==2.13.5
+
+# --- Dev / testing --------------------------------------------------------
+pytest==9.1.1
+pytest-mock==3.15.1

@@ -1,0 +1,49 @@
+version: "3.9"
+
+# Primary way to start local infra:
+#     docker-compose up -d
+#
+# This brings up PostgreSQL 16 with the pgvector extension pre-installed
+# (official pgvector/pgvector image — see https://github.com/pgvector/pgvector).
+# The app container is optional (commented usage below) — most contributors
+# will run `streamlit run app.py` directly on the host against this database.
+
+services:
+  postgres:
+    image: pgvector/pgvector:pg16
+    container_name: adaptive_rag_postgres
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: ${POSTGRES_USER:-adaptive_rag}
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-adaptive_rag}
+      POSTGRES_DB: ${POSTGRES_DB:-adaptive_rag}
+    ports:
+      - "${POSTGRES_PORT:-5432}:5432"
+    volumes:
+      - pgdata:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ${POSTGRES_USER:-adaptive_rag}"]
+      interval: 5s
+      timeout: 5s
+      retries: 10
+
+  # Optional: containerized app. Build once your DATABASE_URL in .env
+  # points at "postgres" (the service name above) instead of "localhost".
+  #
+  # app:
+  #   build: .
+  #   container_name: adaptive_rag_app
+  #   restart: unless-stopped
+  #   env_file: .env
+  #   environment:
+  #     DATABASE_URL: postgresql://${POSTGRES_USER:-adaptive_rag}:${POSTGRES_PASSWORD:-adaptive_rag}@postgres:5432/${POSTGRES_DB:-adaptive_rag}
+  #   depends_on:
+  #     postgres:
+  #       condition: service_healthy
+  #   ports:
+  #     - "8501:8501"
+  #   volumes:
+  #     - ./data/uploads:/app/data/uploads
+
+volumes:
+  pgdata:

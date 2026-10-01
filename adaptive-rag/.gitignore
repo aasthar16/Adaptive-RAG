@@ -1,0 +1,46 @@
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.eggs/
+.Python
+*.so
+build/
+dist/
+
+# Virtual environments
+.venv/
+venv/
+env/
+
+# Streamlit
+.streamlit/secrets.toml
+
+# Uploaded documents / local storage
+data/uploads/
+data/
+
+# Test / tooling caches
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+htmlcov/
+.coverage
+coverage.xml
+
+# Benchmark output
+benchmark_results.json
+
+# Docker volumes (bind mounts, if any)
+pgdata/
+
+# OS / editor
+.DS_Store
+.idea/
+.vscode/
+*.swp
